@@ -1,43 +1,4 @@
-// import 'dart:io';
-
-// import 'package:flutter/material.dart';
-// import 'package:image_cropper/image_cropper.dart';
-
-// class EditorCropImagePage extends StatefulWidget {
-//   final File image;
-//   const EditorCropImagePage({Key? key, required this.image}) : super(key: key);
-
-//   @override
-//   State<EditorCropImagePage> createState() => _EditorCropImagePageState();
-// }
-
-// class _EditorCropImagePageState extends State<EditorCropImagePage> {
-//   // CroppedFile? _croppedFile;
-//   // @override
-//   // void initState() async {
-//   //   await
-
-//   //   super.initState();
-//   // }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextButton(
-//         onPressed: () async {
-//           await cropImage(image: widget.image);
-//         },
-//         child: Text('crop'));
-//   }
-
-//   Future<File?> cropImage({required File image}) async {
-//     CroppedFile? croppedFile = await ImageCropper().cropImage(
-//       sourcePath: widget.image.path,
-//     );
-//     if (croppedFile == null) return null;
-//     return File(croppedFile.path);
-//   }
-// }
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picsart/src/presentation/bloc/image_edit/image_edit_bloc.dart';
 
@@ -49,7 +10,7 @@ class EditorCropImagePage extends StatelessWidget {
      return BlocBuilder<ImageEditBloc, ImageEditState>(
                   builder: (context, state) {
                     if (state is ImageEditLoading) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -61,7 +22,7 @@ class EditorCropImagePage extends StatelessWidget {
                             fit: BoxFit.contain,
                           ));
                     } else {
-                      return Text('some error');
+                      return const SizedBox();
                     }
                   },
                 );

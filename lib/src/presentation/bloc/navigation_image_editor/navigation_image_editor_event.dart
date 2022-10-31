@@ -14,7 +14,7 @@ class AppStarted extends NavigationImageEditorEvent {
 class PageTapped extends NavigationImageEditorEvent {
   final int index;
 
-  PageTapped({required this.index});
+  const PageTapped({required this.index});
 
   @override
   String toString() => 'PageTapped: $index';

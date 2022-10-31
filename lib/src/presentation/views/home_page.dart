@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Uint8List? imageLocal;
   Future<void> _pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -26,8 +23,8 @@ class _HomePageState extends State<HomePage> {
       File? galleryImg = File(image.path);
       setState(() {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-        BlocProvider.of<ImageEditBloc>(context).add(UpdateImage(galleryImg));
-          return NavigationImageEditorPage( );
+          BlocProvider.of<ImageEditBloc>(context).add(UpdateImage(galleryImg));
+          return const NavigationImageEditorPage();
         }));
       });
     } catch (e) {
@@ -67,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        Text('Recent Images'),
+        const Text('Recent Images'),
         Container(
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black38, width: 1)),

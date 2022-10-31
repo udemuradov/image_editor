@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:picsart/src/core/utils/app_colors.dart';
 import 'package:picsart/src/presentation/bloc/image_edit/image_edit_bloc.dart';
 
 class EditorFilterImagePage extends StatefulWidget {
-  EditorFilterImagePage({
+  const EditorFilterImagePage({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +19,7 @@ class _EditorFilterImagePageState extends State<EditorFilterImagePage> {
     return BlocBuilder<ImageEditBloc, ImageEditState>(
         builder: (context, state) {
       if (state is ImageEditLoading) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       }
@@ -32,7 +30,6 @@ class _EditorFilterImagePageState extends State<EditorFilterImagePage> {
               height: 300,
               child: ColorFiltered(
                 colorFilter: fill,
-                //colorFilter: ColorFilter.mode(Colors.orange, BlendMode.color),
                 child: Image.file(
                   state.image!,
                   fit: BoxFit.contain,
@@ -50,7 +47,8 @@ class _EditorFilterImagePageState extends State<EditorFilterImagePage> {
                       });
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 2, vertical: 4),
                       height: 70,
                       width: 70,
                       child: ColorFiltered(
@@ -70,7 +68,7 @@ class _EditorFilterImagePageState extends State<EditorFilterImagePage> {
           ],
         );
       } else {
-        return Text('some error');
+        return const SizedBox();
       }
     });
   }

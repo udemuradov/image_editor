@@ -1,12 +1,6 @@
-import 'dart:io';
-
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:photofilters/photofilters.dart';
 import 'package:picsart/src/core/utils/app_colors.dart';
-import 'package:image/image.dart' as imageLib;
 import 'package:picsart/src/presentation/bloc/image_edit/image_edit_bloc.dart';
 import 'package:picsart/src/presentation/bloc/navigation_image_editor/navigation_image_editor_bloc.dart';
 import 'package:picsart/src/presentation/views/editor_crop_image_page.dart';
@@ -27,11 +21,11 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40),
+        preferredSize: const Size.fromHeight(40),
         child: BlocBuilder<ImageEditBloc, ImageEditState>(
           builder: (context, state) {
             if (state is ImageEditLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
             if (state is ImageEditReady) {
               return AppBar(
@@ -51,12 +45,11 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
                               );
                             });
                       },
-                      icon: Icon(Icons.save))
+                      icon: const Icon(Icons.save))
                 ],
-                // title: const Text("Edit Image"),
               );
             } else {
-              return SizedBox();
+              return const SizedBox();
             }
           },
         ),
@@ -70,21 +63,13 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
                 return const EditorCropImagePage();
               }
               if (state is FilterImagePage) {
-                return EditorFilterImagePage();
-
-                // ColorFiltered(
-                //   colorFilter: colorFilter[2],
-                //   //colorFilter: ColorFilter.mode(Colors.orange, BlendMode.color),
-                //   child: SizedBox(
-                //       height: 500,
-                //       child: Image.file(
-                //         widget.image,
-                //         fit: BoxFit.contain,
-                //       )),
-                // );
+                return const EditorFilterImagePage();
               }
               if (state is PaintOnImagePage) {
-                return const Text('paint');
+                return const Text(
+                  "Не успел разобраться(",
+                  style: TextStyle(color: Colors.white),
+                );
               }
               return Container();
             },
@@ -92,7 +77,7 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
           BlocBuilder<ImageEditBloc, ImageEditState>(
             builder: (context, state) {
               if (state is ImageEditLoading) {
-                return Text('data');
+                return const CircularProgressIndicator();
               }
               if (state is ImageEditReady) {
                 return Row(
@@ -102,14 +87,14 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
                         onPressed: () {
                           context
                               .read<NavigationImageEditorBloc>()
-                              .add(PageTapped(index: 0));
+                              .add(const PageTapped(index: 0));
                           setState(() {
                             activeIndex = 0;
                           });
                           BlocProvider.of<ImageEditBloc>(context)
                               .add(CropImage(state.image!));
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.crop,
                           color: AppColors.appButtons,
                         )),
@@ -117,27 +102,29 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
                         onPressed: () async {
                           context
                               .read<NavigationImageEditorBloc>()
-                              .add(PageTapped(index: 1));
+                              .add(const PageTapped(index: 1));
 
                           setState(() {
                             activeIndex = 1;
                           });
                         },
-                        icon: Icon(Icons.filter, color: AppColors.appButtons)),
+                        icon: const Icon(Icons.filter,
+                            color: AppColors.appButtons)),
                     IconButton(
                         onPressed: () {
                           context
                               .read<NavigationImageEditorBloc>()
-                              .add(PageTapped(index: 2));
+                              .add(const PageTapped(index: 2));
                           setState(() {
                             activeIndex = 2;
                           });
                         },
-                        icon: Icon(Icons.edit, color: AppColors.appButtons)),
+                        icon: const Icon(Icons.edit,
+                            color: AppColors.appButtons)),
                   ],
                 );
               } else {
-                return Text('obj');
+                return const SizedBox();
               }
             },
           )
@@ -145,15 +132,4 @@ class _NavigationImageEditorPageState extends State<NavigationImageEditorPage> {
       ),
     );
   }
-
-  // Future<File?> cropImage({required File image}) async {
-  //   CroppedFile? croppedFile = await ImageCropper().cropImage(
-  //     sourcePath: widget.image.path,
-  //   );
-  //   setState(() {
-  //     widget.image = File(croppedFile?.path ?? widget.image.path);
-  //   });
-  //   if (croppedFile == null) return widget.image;
-  //   return File(croppedFile.path);
-  // }
 }
